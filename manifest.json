@@ -1,20 +1,22 @@
 {
   "background_color": "#ffffff",
-  "theme_color": "#333333",
-  "name": "Upptime",
-  "short_name": "Upptime",
+  "theme_color": "#18181b",
+  "name": "lihaiplan 服務狀態",
+  "short_name": "服務狀態",
   "display": "minimal-ui",
   "start_url": "/",
   "icons": [
     {
       "src": "logo-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "logo-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
