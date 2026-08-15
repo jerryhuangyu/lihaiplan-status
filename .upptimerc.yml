@@ -24,7 +24,10 @@ status-website:
   name: lihaiplan
   introTitle: lihaiplan 服務狀態
   introMessage: 這一頁跑在 GitHub 上，和 lihaiplan 的主機無關。
-  theme: dark
+  # assets/ is copied to the site root as-is, so assets/lihaiplan.css is served
+  # from here. Replaces `theme: dark` — the built-in themes are single-mode, and
+  # every other lihaiplan surface follows the reader's system setting.
+  themeUrl: https://status.jenlihai.website/lihaiplan.css
   navbar:
     - title: 狀態
       href: /
