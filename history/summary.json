@@ -22,18 +22,20 @@
     "url": "https://drafts.jenlihai.website/d/5c5fg2jasp2h",
     "icon": "https://icons.duckduckgo.com/ip3/drafts.jenlihai.website.ico",
     "slug": "讀取一份真實計畫",
-    "status": "up",
-    "uptime": "100.00%",
-    "uptimeDay": "100.00%",
-    "uptimeWeek": "100.00%",
-    "uptimeMonth": "100.00%",
-    "uptimeYear": "100.00%",
-    "time": 554,
-    "timeDay": 554,
-    "timeWeek": 554,
-    "timeMonth": 554,
-    "timeYear": 554,
-    "dailyMinutesDown": {}
+    "status": "down",
+    "uptime": "98.43%",
+    "uptimeDay": "98.43%",
+    "uptimeWeek": "98.43%",
+    "uptimeMonth": "98.43%",
+    "uptimeYear": "98.43%",
+    "time": 516,
+    "timeDay": 516,
+    "timeWeek": 516,
+    "timeMonth": 516,
+    "timeYear": 516,
+    "dailyMinutesDown": {
+      "2026-08-15": 0
+    }
   },
   {
     "name": "儀表板與 API",
