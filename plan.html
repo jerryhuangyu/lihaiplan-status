@@ -319,9 +319,25 @@ gh api -X PUT repos/jerryhuangyu/lihaiplan-status/pages -f cname="status.jenliha
 <p>
   <code>assets/lihaiplan.css</code> 把 <code>packages/app/src/tokens.css</code> 的色票整套搬過來，
   用 <code>themeUrl</code> 掛上去，取代內建的 <code>theme: dark</code>——內建主題都是單一模式，
-  而 lihaiplan 其他頁面都跟隨系統設定。favicon 也換成 lihaiplan 自己的 mark，
-  原本那個是從 <code>raw.githubusercontent.com</code> 抓 Upptime 的 logo，
-  是這一頁唯一對 GitHub Pages 以外主機發出的請求。
+  而 lihaiplan 其他頁面都跟隨系統設定。
+</p>
+
+<p>
+  標誌全部換成 LH mark。<code>assets/</code> 底下的圖檔一律從 lihai-icons 逐位元組複製、
+  絕不手改，所以之後要確認有沒有走鐘，<code>cmp</code> 一下就知道，不必用眼睛比。
+  原本 <code>faviconSvg</code> 沒設的時候，tab 上的圖是從
+  <code>raw.githubusercontent.com</code> 抓 Upptime 的 logo，
+  那是這一頁唯一對 GitHub Pages 以外主機發出的請求。
+</p>
+
+<p>
+  <code>manifest.json</code>、<code>logo-192.png</code>、<code>logo-512.png</code>
+  沒有任何設定鍵可以改，但 <code>post-process.ts</code> 是在
+  <code>sapper export</code> <em>之後</em>才把 <code>assets/</code> 蓋上去的，
+  所以同名檔案放進 <code>assets/</code> 就會贏過產生器。這是唯一能碰到
+  「加到主畫面」那個介面的辦法——在那之前它叫 Upptime，圖是那支青綠色箭頭。
+  圖示宣告成 <code>purpose: "any"</code> 而不是 <code>"any maskable"</code>：
+  量過了，mark 的外角落在 80% 安全圓之外，照 maskable 裁的啟動器會把 L 跟 H 的角切掉。
 </p>
 
 <p>三件改的時候會踩到的事，都寫在那個 CSS 檔的註解裡：</p>
