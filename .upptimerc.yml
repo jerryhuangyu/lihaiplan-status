@@ -28,6 +28,16 @@ status-website:
   # from here. Replaces `theme: dark` — the built-in themes are single-mode, and
   # every other lihaiplan surface follows the reader's system setting.
   themeUrl: https://status.jenlihai.website/lihaiplan.css
+
+  # lihaiplan's own mark, copied from packages/web/public/favicon.svg. Not
+  # documented on upptime.js.org — the keys are read straight from
+  # src/routes/_layout.svelte in upptime/status-page. Without them the tab shows
+  # Upptime's logo, fetched from raw.githubusercontent.com, which is both
+  # off-brand and the only request this page makes to a host we do not control.
+  # The PNG is not named logo-192.png on purpose: that name already exists at
+  # the site root and belongs to the generator.
+  faviconSvg: https://status.jenlihai.website/favicon.svg
+  favicon: https://status.jenlihai.website/lihaiplan-192.png
   navbar:
     - title: 狀態
       href: /
