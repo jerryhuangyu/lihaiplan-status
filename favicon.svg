@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- A plan: a sheet with a link on it. Colours are fixed rather than
+       theme-aware, because a favicon is drawn against the browser's chrome, not
+       against the page. -->
+  <rect width="32" height="32" rx="7" fill="#1c62d6" />
+  <path
+    d="M9.5 9.5h13M9.5 15h13M9.5 20.5h8"
+    stroke="#fff"
+    stroke-width="2.4"
+    stroke-linecap="round"
+  />
+</svg>
