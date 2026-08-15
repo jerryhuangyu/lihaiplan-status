@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lihaiplan 外部監控 canary</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --brand: #faec32;
+    --bg: #f8f8f8;
+    --card: #fff;
+    --fg: #1f1f1f;
+    --muted: #505050;
+    --border: #e0e0e0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #131313; --card: #1c1c1c; --fg: #f0f0f0; --muted: #aeaeae; --border: #333; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.65 "Noto Sans", ui-sans-serif, system-ui, -apple-system, "PingFang TC",
+      "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  }
+  .band { background: #faec32; }
+  .band .inner {
+    max-width: 680px; margin: 0 auto; padding: 14px 20px;
+    display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap;
+  }
+  .band .brand { font-weight: 900; letter-spacing: -0.02em; font-size: 20px; color: #1f1f1f; }
+  .band .where { color: #505050; font-size: 14px; }
+  main { max-width: 680px; margin: 0 auto; padding: 30px 20px 80px; }
+  h1 { font-size: 28px; margin: 0 0 12px; font-weight: 900; letter-spacing: -0.03em; }
+  p { margin: 0 0 14px; }
+  .token {
+    display: inline-block; font: 700 22px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: var(--brand); color: #1f1f1f; padding: 6px 14px; border-radius: 14px 0 14px 0;
+  }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-left: 3px solid #d5352f; border-radius: 0 14px 0 14px;
+    padding: 14px 17px; margin: 22px 0;
+  }
+  .card p:last-child { margin-bottom: 0; }
+  .foot { color: var(--muted); font-size: 13px; margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<header class="band"><div class="inner">
+  <span class="brand">lihaiplan</span>
+  <span class="where">canary</span>
+</div></header>
+
+<main>
+
+<h1>這一頁是給機器看的</h1>
+
+<p>
+  外部狀態頁每五分鐘抓一次這個網址，然後在頁面內容裡找下面這個字串。
+  找得到就是綠燈，找不到就是紅燈。
+</p>
+
+<p><span class="token">canary-ok</span></p>
+
+<p>
+  能讀到這行字，代表整條路都是通的：DNS、TLS、反向代理、app 行程、
+  Postgres 裡的中繼資料，以及物件儲存裡真正的位元組。
+  <code>/healthz</code> 只證明行程還活著，證明不了這些。
+</p>
+
+<div class="card">
+  <p>
+    <strong>不要刪除這份計畫，也不要停用它。</strong>
+    刪掉之後監控會變成永久紅燈，而那個紅燈跟服務的真實狀態無關。
+    設定錯誤被記成停機，是狀態頁最不該犯的錯。
+  </p>
+</div>
+
+<p class="foot">
+  外部監控用的 canary。狀態頁：status.jenlihai.website
+</p>
+
+</main>
+</body>
+</html>

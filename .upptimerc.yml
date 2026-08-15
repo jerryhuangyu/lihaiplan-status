@@ -1,31 +1,32 @@
-# Change these first
-owner: upptime # Your GitHub organization or username, where this repository lives
-repo: upptime # The name of this repository
+owner: jerryhuangyu
+repo: lihaiplan-status
 
 sites:
-  - name: Google
-    url: https://www.google.com
-  - name: Wikipedia
-    url: https://en.wikipedia.org
-  - name: Hacker News
-    url: https://news.ycombinator.com
-  - name: Secret Site
-    url: $SECRET_SITE
+  - name: 已發佈的計畫
+    url: https://drafts.jenlihai.website/healthz
+  # 這一條走完 DNS → TLS → 反向代理 → app → Postgres → MinIO → 真的位元組，
+  # 是唯一能證明「讀者現在打得開計畫」的檢查。/healthz 只證明行程活著：
+  # 物件儲存壞掉時其他三條會全綠，而所有讀者都拿不到內容。
+  #
+  # 這份 canary 計畫永遠不要刪、不要 disable。刪掉之後這裡會變成永久紅燈，
+  # 而那個紅燈跟服務的真實狀態無關。原始檔在本 repo 的 status-canary.html。
+  #   npx lihaiplan upload ./status-canary.html --draft 5c5fg2jasp2h
+  - name: 讀取一份真實計畫
+    url: https://drafts.jenlihai.website/d/5c5fg2jasp2h
+    __dangerous__body_down_if_text_missing: "canary-ok"
+  - name: 儀表板與 API
+    url: https://plan.jenlihai.website/healthz
+  - name: 登入
+    url: https://auth.jenlihai.website/healthz
 
 status-website:
-  # Add your custom domain name, or remove the `cname` line if you don't have a domain
-  # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
-  cname: demo.upptime.js.org
-  # baseUrl: /your-repo-name
-  logoUrl: https://raw.githubusercontent.com/upptime/upptime.js.org/master/static/img/icon.svg
-  name: Upptime
-  introTitle: "**Upptime** is the open-source uptime monitor and status page, powered entirely by GitHub."
-  introMessage: This is a sample status page which uses **real-time** data from our [GitHub repository](https://github.com/upptime/upptime). No server required — just GitHub Actions, Issues, and Pages. [**Get your own for free**](https://github.com/upptime/upptime)
+  cname: status.jenlihai.website
+  name: lihaiplan
+  introTitle: lihaiplan 服務狀態
+  introMessage: 這一頁跑在 GitHub 上，和 lihaiplan 的主機無關。
+  theme: dark
   navbar:
-    - title: Status
+    - title: 狀態
       href: /
-    - title: GitHub
-      href: https://github.com/$OWNER/$REPO
-
-# Upptime also supports notifications, assigning issues, and more
-# See https://upptime.js.org/docs/configuration
+    - title: lihaiplan
+      href: https://plan.jenlihai.website
