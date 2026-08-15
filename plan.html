@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lihaiplan 的外部狀態頁</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --brand: #faec32;
+    --ink: #1f1f1f;
+    --bg: #f8f8f8;
+    --card: #fff;
+    --fg: #1f1f1f;
+    --muted: #505050;
+    --border: #e0e0e0;
+    --ok: #17683a;
+    --warn: #8a5a00;
+    --danger: #d5352f;
+    --font-sans: "Noto Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+      "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Noto Sans TC", monospace;
+    --mark: 14px 0 14px 0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131313; --card: #1c1c1c; --fg: #f0f0f0; --muted: #aeaeae; --border: #333;
+      --ok: #6ed69b; --warn: #e0b055; --danger: #f2635c;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.65 var(--font-sans);
+  }
+  ::selection { background: var(--brand); color: var(--ink); }
+  .band { background: #faec32; }
+  .band .inner {
+    max-width: 820px; margin: 0 auto; padding: 14px 20px;
+    display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap;
+  }
+  .band .brand { font-weight: 900; letter-spacing: -0.02em; font-size: 20px; color: #1f1f1f; }
+  .band .where { color: #505050; font-size: 14px; }
+  main { max-width: 820px; margin: 0 auto; padding: 30px 20px 80px; }
+  h1 {
+    font-size: clamp(27px, 4.4vw, 38px); margin: 0 0 12px;
+    font-weight: 900; letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .lede { color: var(--muted); margin: 0 0 10px; }
+  .meta { color: var(--muted); font-size: 13px; margin: 0 0 34px; }
+  h2 {
+    font-size: 20px; font-weight: 900; letter-spacing: -0.02em;
+    margin: 44px 0 12px; padding-top: 18px; border-top: 1px solid var(--border);
+  }
+  h3 { font-size: 15px; font-weight: 700; margin: 26px 0 8px; }
+  p { margin: 0 0 14px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  code {
+    font: 13.5px/1.5 var(--font-mono); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 6px 0 6px 0;
+    padding: 1px 5px; overflow-wrap: anywhere;
+  }
+  pre {
+    background: var(--bg); border: 1px solid var(--border); border-radius: var(--mark);
+    padding: 14px 16px; overflow-x: auto; margin: 0 0 16px;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: 13px; }
+  .why {
+    background: var(--card); border: 1px solid var(--border);
+    border-left: 3px solid var(--brand); border-radius: 0 var(--mark) 0 var(--mark);
+    padding: 14px 17px; margin: 0 0 20px;
+  }
+  .why p:last-child, .card p:last-child { margin-bottom: 0; }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 4px; padding: 16px 18px; margin: 0 0 16px;
+  }
+  .stop { border-left: 3px solid var(--danger); }
+  .good { border-left: 3px solid var(--ok); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 0 0 18px; }
+  th, td {
+    text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th { font-size: 13px; font-weight: 700; color: var(--muted); }
+  .check { list-style: none; padding-left: 0; }
+  .check li { padding-left: 26px; position: relative; margin-bottom: 9px; }
+  .check li::before {
+    content: "\2713"; position: absolute; left: 0; top: 0; color: var(--ok); font-weight: 700;
+  }
+  .foot {
+    color: var(--muted); font-size: 13px; margin-top: 48px;
+    padding-top: 16px; border-top: 1px solid var(--border);
+  }
+  a { color: var(--fg); text-decoration: underline; text-underline-offset: 2px; }
+  @media (prefers-color-scheme: dark) { a { color: var(--brand); } }
+</style>
+</head>
+<body>
+
+<header class="band"><div class="inner">
+  <span class="brand">lihaiplan</span>
+  <span class="where">status</span>
+</div></header>
+
+<main>
+
+<h1>lihaiplan 的外部狀態頁</h1>
+<p class="lede">
+  已經上線。這一頁描述的是最終狀態，不是要做什麼。
+</p>
+<p class="meta">
+  給接手的 agent。版本 1 是原始計畫，撰於 2026-08-15；本版 2026-08-16 改寫為執行結果。
+  對應 lihaiplan 部署 <code>1604faf</code>，Upptime 釘在 <code>v1.43.14</code>。
+</p>
+
+<h2>現在有什麼</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>狀態頁</strong></td>
+      <td><a href="https://status.jenlihai.website">status.jenlihai.website</a><br>
+        GitHub Pages，Let's Encrypt 憑證，強制 HTTPS</td>
+    </tr>
+    <tr>
+      <td><strong>Repo</strong></td>
+      <td><a href="https://github.com/jerryhuangyu/lihaiplan-status">jerryhuangyu/lihaiplan-status</a>（public）</td>
+    </tr>
+    <tr>
+      <td><strong>Canary 計畫</strong></td>
+      <td><code>5c5fg2jasp2h</code> ·
+        <a href="https://drafts.jenlihai.website/d/5c5fg2jasp2h">drafts.jenlihai.website/d/5c5fg2jasp2h</a><br>
+        原始檔是 repo 裡的 <code>status-canary.html</code></td>
+    </tr>
+    <tr>
+      <td><strong>檢查間隔</strong></td>
+      <td>排程 5 分鐘，<strong>實測落在 15–20 分鐘</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>四個監控</h3>
+
+<pre><code>已發佈的計畫       https://drafts.jenlihai.website/healthz
+讀取一份真實計畫    https://drafts.jenlihai.website/d/5c5fg2jasp2h   ← 比對 "canary-ok"
+儀表板與 API      https://plan.jenlihai.website/healthz
+登入             https://auth.jenlihai.website/healthz</code></pre>
+
+<p>
+  順序是刻意的。會來看狀態頁的人絕大多數是拿到連結打不開的讀者，不是登入使用者，
+  所以讀者那條路排前兩位。
+</p>
+
+<div class="why">
+  <p>
+    <strong>第二條才是這裡最有價值的一條。</strong>
+    <code>/healthz</code> 只證明行程活著。物件儲存（MinIO）壞掉時，另外三條會全部是綠的，
+    而所有讀者都拿不到內容——因為計畫的位元組在 bucket 裡。
+  </p>
+  <p>
+    第二條走完 DNS → TLS → 反向代理 → app → Postgres → MinIO → 真的位元組，
+    而且不只看 <code>200</code>：<code>__dangerous__body_down_if_text_missing</code>
+    要求頁面內容裡真的出現 <code>canary-ok</code>，否則就算回 200 也記成 down。
+    代理回一頁錯誤頁也是 200，這一條就是為了那種情況。
+  </p>
+</div>
+
+<h2>為什麼是外部的</h2>
+
+<div class="why">
+  <p>
+    <strong>服務掛掉的時候，掛掉的東西沒辦法告訴你它掛了。</strong>
+    如果狀態頁由 <code>plan.jenlihai.website</code> 自己 serve，「app is down」這個狀態
+    永遠不可能被顯示出來。所以它跑在 GitHub Actions，頁面放在 GitHub Pages，
+    兩者都跟 lihaiplan 的主機無關。
+  </p>
+</div>
+
+<p>
+  lihaiplan 之後會有一個 <code>/status</code> 頁（由 app 自己 serve）。那是另一件事，
+  兩者互補而不是二選一：
+</p>
+
+<table>
+  <thead>
+    <tr><th></th><th>這個狀態頁</th><th>/status（尚未做）</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>全站掛掉時</td><td><strong>還在</strong></td><td>跟著死</td></tr>
+    <tr><td>粒度</td><td>每個 URL 上／下</td><td>元件、歷史、事件說明</td></tr>
+    <tr><td>事件記錄</td><td>自動開 GitHub issue</td><td>人手寫的說明</td></tr>
+    <tr><td>偵測延遲</td><td>15–20 分鐘</td><td>5 分鐘</td></tr>
+  </tbody>
+</table>
+
+<p>
+  最後一列值得注意：<strong><code>/status</code> 若要對得起 5 分鐘這個粒度，
+  資料來源不能是這個狀態頁。</strong>
+</p>
+
+<h2>警報鏈驗證過了，不是假設</h2>
+
+<div class="card good">
+  <p>
+    刻意弄壞測試做過一次，證據是
+    <a href="https://github.com/jerryhuangyu/lihaiplan-status/issues/1">issue #1</a>：
+    自動開啟、修好後自動關閉。
+  </p>
+  <p>
+    測試方式不是 <code>lihaiplan disable</code>，而是上傳一版把 <code>canary-ok</code>
+    換掉的 canary。這樣測到的東西不一樣：那次回的是 <strong>HTTP 200</strong>，
+    issue 內文自己寫著 <code>HTTP code: 200</code>，證明轉紅的是關鍵字比對而不是狀態碼。
+    只驗狀態碼的話，那條檢查最重要的部分等於沒被驗過。
+  </p>
+</div>
+
+<p>
+  副作用：「讀取一份真實計畫」的 uptime 因此掉了一截，正在隨時間稀釋。那不是真實停機。
+</p>
+
+<h2>跟原計畫不一樣的地方</h2>
+
+<h3>一、<code>GITHUB_TOKEN</code> 不可能完成原計畫的步驟 3</h3>
+
+<p>
+  原計畫說把 Workflow permissions 改成 read and write 就好。改了，Setup CI 還是失敗，
+  而且錯誤訊息不會直說。原因是 Upptime 的 <code>update-template</code> 會改寫
+  <code>.github/workflows/*</code>，而 <strong>GitHub 無條件禁止 <code>GITHUB_TOKEN</code>
+  寫 workflow 檔案</strong>，跟 repo 設定無關。它是 job 的第一步，倒了之後檢查、README、
+  Pages 部署全部沒跑到。
+</p>
+
+<p>
+  <code>updates.yml</code>（<code>upptime/updates</code>）是同一類東西，每天 03:00 會用同樣
+  的方式失敗，而且萬一成功還會解掉版本釘選。
+</p>
+
+<p>現在的處置：</p>
+
+<ul>
+  <li><code>update-template.yml</code> 與 <code>updates.yml</code> 已刪除</li>
+  <li><code>setup.yml</code> 裡的 <em>Update template</em> 步驟已移除</li>
+  <li>Upptime 釘在 <code>v1.43.14</code>，理由與手動升級方式寫在 <code>setup.yml</code> 開頭</li>
+</ul>
+
+<p>
+  另一條路是把有 <code>workflow</code> scope 的 PAT 放進這個公開 repo 的 secrets，
+  用一個長期憑證換每週自動更新。對一個狀態頁來說，釘住版本比較便宜。
+</p>
+
+<div class="card stop">
+  <p>
+    <strong>不要把自動更新打開回去，除非你同時準備好那把 token。</strong>
+    上游在每個 workflow 檔案開頭寫著「不要編輯這個檔案」，
+    <code>setup.yml</code> 的開頭已經改寫成說明為什麼這次可以編輯——不然下一個人會照上游的話改回去，
+    然後每天多一個紅色的 workflow。
+  </p>
+</div>
+
+<h3>二、排程 workflow 沒跑過就不會被註冊</h3>
+
+<p>
+  這件事沒有任何地方會提醒你，症狀是「設定看起來都對，但監控從來沒跑」。
+  剛建好時 <code>gh workflow list</code> 只看得到兩個 workflow，
+  <code>gh workflow run uptime.yml</code> 會回 404。
+</p>
+
+<p>用 <code>repository_dispatch</code> 逐一觸發一次就會註冊：</p>
+
+<pre><code>for t in uptime setup response_time summary graphs; do
+  gh api repos/jerryhuangyu/lihaiplan-status/dispatches -f event_type=$t
+done</code></pre>
+
+<h3>三、DNS 是 DNS-only，這是刻意的</h3>
+
+<p>
+  jenlihai.website 整個 zone 在 Cloudflare，<code>plan</code>、<code>drafts</code>、
+  <code>auth</code> 都走 Cloudflare proxy。<code>status</code> 一開始也是（橘雲），
+  但那代表<strong>狀態頁和它監控的服務共用同一層 proxy</strong>——主機死掉它還在，
+  proxy 層出事它就跟著倒，而那正是這整件事要避免的。
+</p>
+
+<pre><code>status  CNAME  jerryhuangyu.github.io   （灰雲 / DNS-only）</code></pre>
+
+<div class="card stop">
+  <p>
+    <strong>動這筆記錄會造成一段 HTTPS 空窗。</strong>
+    灰雲切換當下 Cloudflare 退出 TLS，而 GitHub 還沒簽自己的憑證，中間十幾分鐘
+    <code>https://</code> 是連不上的。而且它不一定會自己開始簽——這次是把 Pages 的自訂網域
+    移除再加回去才觸發的：
+  </p>
+  <pre><code>gh api -X PUT repos/jerryhuangyu/lihaiplan-status/pages -f cname=""
+gh api -X PUT repos/jerryhuangyu/lihaiplan-status/pages -f cname="status.jenlihai.website"</code></pre>
+</div>
+
+<h3>四、原計畫漏寫的一步</h3>
+
+<p>
+  原計畫說不用自訂網域時「把 <code>cname</code> 整行刪掉」。這不完整——上游還要求補
+  <code>baseUrl: /lihaiplan-status</code>，否則 project site 的資源路徑會壞。
+  我們用自訂網域，所以沒踩到，但如果哪天要退回 github.io 就會遇上。
+</p>
+
+<h3>五、帳號</h3>
+
+<p>
+  repo 在 <strong>jerryhuangyu</strong> 底下。這台開發機的 <code>gh</code> 預設登入的是
+  <strong>JerryHuangDF</strong>（工作帳號），兩個都存在，弄錯不會報錯，只會把東西放到錯的地方。
+  repo 內設了 local credential helper 走 <code>gh</code>，所以切回工作帳號之後從這個 repo
+  push 會失敗：
+</p>
+
+<pre><code>gh auth switch --user jerryhuangyu</code></pre>
+
+<h2>樣式</h2>
+
+<p>
+  <code>assets/lihaiplan.css</code> 把 <code>packages/app/src/tokens.css</code> 的色票整套搬過來，
+  用 <code>themeUrl</code> 掛上去，取代內建的 <code>theme: dark</code>——內建主題都是單一模式，
+  而 lihaiplan 其他頁面都跟隨系統設定。favicon 也換成 lihaiplan 自己的 mark，
+  原本那個是從 <code>raw.githubusercontent.com</code> 抓 Upptime 的 logo，
+  是這一頁唯一對 GitHub Pages 以外主機發出的請求。
+</p>
+
+<p>三件改的時候會踩到的事，都寫在那個 CSS 檔的註解裡：</p>
+
+<ul>
+  <li>
+    <strong>主題 CSS 在 <code>global.css</code> 之前載入。</strong>自訂屬性沒問題，
+    但一般規則在同 specificity 下會輸。檔案裡的 <code>#sapper</code> / <code>main</code>
+    前綴看起來像過度限定，其實不是——拿掉就會安靜地失效。
+  </li>
+  <li>
+    <strong>masthead 的文字顏色必須釘死。</strong>黃色橫幅深淺兩個模式都在，
+    讓它繼承 <code>--body-text-color</code> 的話，深色模式會是 <code>#f0f0f0</code> 疊在
+    <code>#faec32</code> 上，1.08:1，整條導覽列消失。同理，狀態色沒有一個是黃的：
+    <code>#faec32</code> 在白底只有 1.2:1，只能當填色。
+  </li>
+  <li>
+    <strong>Upptime 的 <code>--graph-opacity</code> 是死的。</strong>它把變數花在
+    <code>article .graph</code> 這個後代選擇器上，但 <code>graph</code> 是掛在
+    <code>article</code> 自己身上的 class，永遠不匹配。反應時間曲線改用一層卡片同色的遮罩壓下去，
+    不能用 <code>opacity</code>，那會把卡片文字一起調淡。
+  </li>
+</ul>
+
+<p>
+  改不到的：<code>&lt;meta name="theme-color"&gt;</code> 是產生器寫死的 <code>#333333</code>，
+  手機網址列底色還是深灰。要動就得改上游模板，會踩到刻意關掉的自動更新，不值得。
+</p>
+
+<h2>永遠不要做的事</h2>
+
+<div class="card stop">
+  <p>
+    <strong>不要刪除 canary 計畫，也不要停用它。</strong>
+    刪掉之後「讀取一份真實計畫」會變成永久紅燈，而那個紅燈跟服務的真實狀態無關。
+    設定錯誤被記成停機，是狀態頁最不該犯的錯。
+  </p>
+  <p>
+    要改它的內容，改 repo 裡的 <code>status-canary.html</code>，然後
+    <strong>帶著 <code>--draft</code></strong> 更新同一份，不要建新的：
+  </p>
+  <pre><code>npx lihaiplan upload ./status-canary.html --draft 5c5fg2jasp2h</code></pre>
+  <p>
+    內容裡必須保留 <code>canary-ok</code> 這個字串。改掉它等於宣告停機。
+  </p>
+</div>
+
+<div class="card stop">
+  <p>
+    <strong>不要把這個 repo 併進 lihaiplan 主 repo。</strong>
+    每次檢查都會 commit 一次結果，一天數百個 commit，會把程式碼的歷史徹底淹掉。
+  </p>
+</div>
+
+<h2>已知的限制，不要試圖修</h2>
+
+<ul>
+  <li>
+    <strong>偵測延遲 15–20 分鐘。</strong>排程寫的是 5 分鐘，實測不是。這是 GitHub Actions
+    排程的性質，不是設定問題，調 cron 沒有用。抓「掛了兩小時」很準，抓「抖了 30 秒」不行——
+    而且中間掛掉又自己好了的話，很可能完全沒有紀錄。要秒級偵測就得換付費監控，那是另一個決定。
+  </li>
+  <li>
+    <strong>檢查來源是 GitHub 的機器。</strong>它看到的是「從 GitHub 的網路看得到嗎」，
+    不完全等於你的使用者看得到嗎。
+  </li>
+  <li>
+    <strong>DNS 這一層仍然共用。</strong>灰雲讓「提供頁面」脫離了 Cloudflare，
+    但 jenlihai.website 的 NS 還是 Cloudflare，整個 zone 出事還是會一起倒。
+    要完全切開得把 status 換到別的網域或別的註冊商。
+  </li>
+  <li>
+    <strong>狀態頁的內容是自動的。</strong>「06:20 資料庫磁碟滿了，已處理」這種人話要寫在
+    issue 裡，或等 lihaiplan 自己的 <code>/status</code>。
+  </li>
+</ul>
+
+<h2>驗收結果</h2>
+
+<ul class="check">
+  <li>狀態頁打得開，四個站點都顯示為 up</li>
+  <li><code>history/</code> 存在，commit 正在自動累積</li>
+  <li>Actions 沒有紅色的 workflow，六個 workflow 都已註冊並排程</li>
+  <li>刻意弄壞 → 自動開 issue → 改回 → 自動關閉，實際跑過一次</li>
+  <li>從手機、不同網路打開，確認不依賴任何 lihaiplan 的東西</li>
+</ul>
+
+<p>
+  最後一條在執行過程中證明了它的價值：正是因為真的去檢查「它依賴什麼」，
+  才發現整個網域共用同一層 Cloudflare proxy。沒被驗證過的監控等於沒有監控，
+  沒被檢查過的隔離也一樣。
+</p>
+
+<p class="foot">
+  由 lihaiplan 發佈。這一頁是靜態 HTML，沒有腳本，任何拿到連結的人都能直接讀。
+</p>
+
+</main>
+</body>
+</html>
