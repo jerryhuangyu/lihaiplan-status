@@ -1,0 +1,218 @@
+/* lihaiplan's palette, ported onto Upptime's status page.
+
+   Values are copied from packages/app/src/tokens.css in the lihaiplan repo —
+   which in turn reads them off 將來銀行 NEXT BANK's production stylesheet — so
+   this page and the dashboard are the same product to look at. If the tokens
+   there change, change them here too: there is no build step joining the two,
+   and nothing will warn you.
+
+   Upptime loads this file BEFORE its own global.css. Custom properties do not
+   care, but ordinary rules do: at equal specificity global.css wins. That is
+   why the selectors below are prefixed with #sapper or main rather than being
+   the bare `body`/`article`/`h1` they would otherwise be. It looks like
+   over-qualification and it is not — remove a prefix and the rule silently
+   stops applying.
+
+   Upptime is pinned at v1.43.14 (see .github/workflows/setup.yml), so the class
+   names and DOM this file reaches into cannot shift under it. That pin is what
+   makes styling past the documented variables safe rather than reckless.
+
+   Two constraints from the source palette that must survive the port:
+
+   - #faec32 is 1.2:1 on white. It is a FILL with dark text on it and nothing
+     else. It is never status, never a border that carries meaning alone, never
+     text. So "up" stays green and "down" stays red below; the yellow appears
+     on the masthead and on the changed-value highlight, both of which put ink
+     on top of it.
+   - The masthead does not follow the theme. It is yellow in light mode and
+     yellow in dark mode, which means its text colour has to be pinned too:
+     letting it inherit --body-text-color would put #f0f0f0 on #faec32 at
+     1.08:1 and the dark-mode navbar would simply disappear. */
+
+:root {
+  --body-background-color: #f8f8f8;
+  --body-text-color: #1f1f1f;
+  --card-background-color: #ffffff;
+  --card-border-color: #e0e0e0;
+
+  --nav-background-color: #faec32;
+  --nav-border-bottom-color: #faec32;
+  --nav-current-border-bottom-color: #1f1f1f;
+
+  /* The greens and reds are the palette's --ok / --warn / --danger, which are
+     already darkened from NEXT BANK's originals to clear AA on white. */
+  --up-border-left-color: #17683a;
+  --degraded-border-left-color: #8a5a00;
+  --down-border-left-color: #d5352f;
+  --down-background-color: #fbe9e8;
+
+  /* White on all three status fills: 6.2:1, 5.6:1, 4.8:1. */
+  --tag-color: #ffffff;
+  --tag-up-background-color: #17683a;
+  --tag-degraded-background-color: #8a5a00;
+  --tag-down-background-color: #d5352f;
+
+  /* The sanctioned use of the yellow: a fill, with ink forced on top of it
+     further down, because Upptime gives no variable for that text colour. */
+  --change-background-color: #faec32;
+
+  --submit-button-background-color: #faec32;
+  --submit-button-color: #1f1f1f;
+  --submit-button-border-color: #1f1f1f;
+  --error-button-background-color: #faec32;
+  --error-button-color: #1f1f1f;
+  --error-button-border-color: #1f1f1f;
+
+  /* Set for completeness, but note that Upptime cannot honour them: global.css
+     spends them in `article .graph`, a descendant selector, while `graph` is a
+     class ON the article. Nothing matches. The sparkline is dimmed by the veil
+     rule near the bottom of this file instead. */
+  --graph-opacity: 1;
+  --graph-filter: none;
+
+  /* Not Upptime's; used only by the rules below. Prefixed so it is obvious
+     which half of this file is talking to Upptime and which half is ours. */
+  --lp-ink: #1f1f1f;
+  --lp-brand: #faec32;
+  --lp-muted: #505050;
+  --lp-veil: rgba(255, 255, 255, 0.76);
+  --lp-radius-card: 4px;
+  --lp-radius-mark: 14px 0 14px 0;
+  --lp-radius-mark-sm: 6px 0 6px 0;
+  --lp-font-sans: "Noto Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", "PingFang TC",
+    "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  --lp-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Noto Sans TC", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body-background-color: #131313;
+    --body-text-color: #f0f0f0;
+    --card-background-color: #1c1c1c;
+    --card-border-color: #333333;
+
+    /* Pinned. See the note at the top. */
+    --nav-background-color: #faec32;
+    --nav-border-bottom-color: #faec32;
+    --nav-current-border-bottom-color: #1f1f1f;
+
+    --up-border-left-color: #6ed69b;
+    --degraded-border-left-color: #e0b055;
+    --down-border-left-color: #f2635c;
+    --down-background-color: #3a1512;
+
+    /* The status fills lighten in dark mode, so the text on them flips to ink:
+       9.4:1, 8.4:1, 6.0:1. Leaving it white would have been 1.9:1 on the green. */
+    --tag-color: #1f1f1f;
+    --tag-up-background-color: #6ed69b;
+    --tag-degraded-background-color: #e0b055;
+    --tag-down-background-color: #f2635c;
+
+    --lp-muted: #aeaeae;
+    --lp-veil: rgba(28, 28, 28, 0.76);
+  }
+}
+
+html body {
+  font-family: var(--lp-font-sans);
+  line-height: 1.65;
+}
+
+/* The masthead's ink, pinned in both themes. */
+#sapper nav a {
+  color: var(--lp-ink);
+}
+
+/* 900 above 20px only. Below that the weight does not reliably ship — there is
+   no webfont here either — and in CJK a small 900 fills the interior strokes of
+   characters like 讀, a legibility cost paid only by the Chinese reader. */
+#sapper main h1 {
+  font-size: clamp(30px, 5vw, 44px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+/* Rank by weight, not size: "Live Status" and "Past Incidents" are section
+   labels, not headlines competing with the h1 above them. */
+#sapper main h2 {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+#sapper .lead,
+#sapper footer {
+  color: var(--lp-muted);
+}
+
+/* 4px, not the two-corner mark. The cards stack into a list, and cutting 14px
+   off every top-left corner leaves the left edge ragged and takes away the
+   alignment the eye scans down. The mark goes on discrete controls instead —
+   see the tag and button rules below. */
+#sapper main article {
+  border-radius: var(--lp-radius-card);
+}
+
+#sapper .tag {
+  border-radius: var(--lp-radius-mark-sm);
+}
+
+#sapper a.error-button,
+#sapper .submit-button {
+  border-radius: var(--lp-radius-mark);
+}
+
+/* Uptime percentages and millisecond figures are data, and the dashboard sets
+   data in mono. Tabular figures so the numbers line up down the column. */
+#sapper .data {
+  font-family: var(--lp-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Upptime paints --change-background-color behind a value that just changed but
+   has no variable for the text on it, so ink is forced here. Without this the
+   dark theme puts #f0f0f0 on #faec32. */
+#sapper .changed + section .data {
+  color: var(--lp-ink);
+  border-radius: var(--lp-radius-mark-sm);
+  padding: 0 4px;
+}
+
+/* Underlined, because the yellow cannot do this job: at 1.2:1 on white, colour
+   alone would leave links indistinguishable from body text. Thickening the rule
+   on hover keeps the feedback in the underline, where it costs no contrast.
+   The navbar is exempt — position already says what it is, and underlining two
+   items sitting on a solid yellow band only adds noise. */
+#sapper main a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+#sapper main a:hover {
+  text-decoration-thickness: 3px;
+}
+
+/* The response-time sparkline is a card background, not a chart anyone reads
+   off: no axes, no scale, and it is the same teal whatever the numbers say. At
+   full strength it was the loudest thing on the page and it competed with the
+   status colour, which is the one mark here that does carry meaning.
+
+   Dimming it with `opacity` would take the card's text down with it, so a veil
+   in the card's own colour is laid over the image as a second background layer
+   instead. `--background` is the per-card inline custom property Upptime sets;
+   this rule re-declares the whole stack because the shorthand longhands have to
+   stay in step with the two layers. */
+#sapper main article.graph {
+  background-image: linear-gradient(var(--lp-veil), var(--lp-veil)), var(--background);
+  background-size: auto, contain;
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center right;
+}
+
+/* The one place the yellow goes behind text, and the one place NEXT BANK's own
+   stylesheet does it too. */
+::selection {
+  background: var(--lp-brand);
+  color: var(--lp-ink);
+}
