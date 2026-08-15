@@ -24,18 +24,45 @@ status-website:
   name: lihaiplan
   introTitle: lihaiplan 服務狀態
   introMessage: 這一頁跑在 GitHub 上，和 lihaiplan 的主機無關。
-  # assets/ is copied to the site root as-is, so assets/lihaiplan.css is served
-  # from here. Replaces `theme: dark` — the built-in themes are single-mode, and
+  # assets/ is copied to the site root, so assets/lihaiplan.css is served from
+  # here. Replaces `theme: dark` — the built-in themes are single-mode, and
   # every other lihaiplan surface follows the reader's system setting.
+  #
+  # post-process.ts runs that copy AFTER `sapper export`, with fs-extra's
+  # default overwrite, so a file in assets/ beats the generator's file of the
+  # same name. That is deliberate for three of them, and it is the only way to
+  # reach them — none has a config key:
+  #
+  #   manifest.json   said name "Upptime", theme #333333. Whoever adds this page
+  #                   to a phone home screen gets whatever is in here.
+  #   logo-192.png    the icons manifest.json points at. Upptime's teal arrow
+  #   logo-512.png    until overridden.
+  #
+  # assets/apple-touch-icon.png needs no override and no link tag: iOS fetches
+  # /apple-touch-icon.png by convention, and nothing was there before.
+  #
+  # The icons are declared `purpose: "any"`, not the `"any maskable"` that
+  # lihai-icons/site.webmanifest claims. Measured on icon-192.png: the mark's
+  # bounding box reaches 91.7px from centre and the maskable safe circle is
+  # 76.8px, so a launcher taking the spec at its word crops the outer corners
+  # off the L and the H. Under "any" it gets letterboxed instead.
   themeUrl: https://status.jenlihai.website/lihaiplan.css
 
-  # lihaiplan's own mark, copied from packages/web/public/favicon.svg. Not
-  # documented on upptime.js.org — the keys are read straight from
-  # src/routes/_layout.svelte in upptime/status-page. Without them the tab shows
-  # Upptime's logo, fetched from raw.githubusercontent.com, which is both
+  # The LH mark. Source of truth is the lihai-icons repo; lihaiplan's own
+  # packages/web/public carries the same bytes. Everything under assets/ is
+  # copied from there byte-for-byte and never hand-edited, so drift is a
+  # `cmp` away rather than something you have to eyeball:
+  #
+  #   assets/favicon.svg          == lihai-icons/favicon.svg
+  #   assets/lihaiplan-192.png    == lihai-icons/icon-192.png
+  #   assets/logo-192.png         == lihai-icons/icon-192.png
+  #   assets/logo-512.png         == lihai-icons/icon-512.png
+  #   assets/apple-touch-icon.png == lihai-icons/apple-touch-icon.png
+  #
+  # Neither key below is documented on upptime.js.org — both are read straight
+  # from src/routes/_layout.svelte in upptime/status-page. Without them the tab
+  # shows Upptime's logo, fetched from raw.githubusercontent.com, which is both
   # off-brand and the only request this page makes to a host we do not control.
-  # The PNG is not named logo-192.png on purpose: that name already exists at
-  # the site root and belongs to the generator.
   faviconSvg: https://status.jenlihai.website/favicon.svg
   favicon: https://status.jenlihai.website/lihaiplan-192.png
   navbar:
