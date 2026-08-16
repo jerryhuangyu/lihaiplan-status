@@ -141,29 +141,55 @@
   </tbody>
 </table>
 
-<h3>四個監控</h3>
+<h3>三個監控，一個子網域一列</h3>
 
-<pre><code>已發佈的計畫       https://drafts.jenlihai.website/healthz
-讀取一份真實計畫    https://drafts.jenlihai.website/d/5c5fg2jasp2h   ← 比對 "canary-ok"
-儀表板與 API      https://plan.jenlihai.website/healthz
-登入             https://auth.jenlihai.website/healthz</code></pre>
+<pre><code>drafts.jenlihai.website · 開啟計畫連結    /d/5c5fg2jasp2h   ← 比對 "canary-ok"
+plan.jenlihai.website · 儀表板與 API      /healthz
+auth.jenlihai.website · 登入             /healthz</code></pre>
 
 <p>
-  順序是刻意的。會來看狀態頁的人絕大多數是拿到連結打不開的讀者，不是登入使用者，
-  所以讀者那條路排前兩位。
+  名字以子網域開頭，因為來看這一頁的人手上只有一個線索：打不開的那個網址。
+  排序是刻意的，會來的絕大多數是拿到連結打不開的讀者，不是登入使用者。
 </p>
 
 <div class="why">
   <p>
-    <strong>第二條才是這裡最有價值的一條。</strong>
-    <code>/healthz</code> 只證明行程活著。物件儲存（MinIO）壞掉時，另外三條會全部是綠的，
+    <strong>第一條才是這裡最有價值的一條。</strong>
+    <code>/healthz</code> 只證明行程活著。物件儲存（MinIO）壞掉時，另外兩條會全部是綠的，
     而所有讀者都拿不到內容——因為計畫的位元組在 bucket 裡。
   </p>
   <p>
-    第二條走完 DNS → TLS → 反向代理 → app → Postgres → MinIO → 真的位元組，
+    它走完 DNS → TLS → 反向代理 → app → Postgres → MinIO → 真的位元組，
     而且不只看 <code>200</code>：<code>__dangerous__body_down_if_text_missing</code>
     要求頁面內容裡真的出現 <code>canary-ok</code>，否則就算回 200 也記成 down。
     代理回一頁錯誤頁也是 200，這一條就是為了那種情況。
+  </p>
+</div>
+
+<p>
+  本來還有第四條 <code>drafts.jenlihai.website/healthz</code>，已經拿掉。
+  lihaiplan 的 README 架構圖裡，<code>plan.*</code> 和 <code>drafts.*</code>
+  是<strong>同一個容器</strong>靠 Host header 分流，所以那一條和
+  <code>plan.*</code> 那條問的是同一個行程，幾乎不可能不一致。
+  頁面上卻是兩列名字都有「計畫」、數字幾乎相同，讀者無從判斷哪一列是自己那條。
+  canary 本身就是打到 <code>drafts.jenlihai.website</code> 的請求，
+  走同樣的 DNS、TLS、代理、Host 分流，再往下多走儲存，所以它涵蓋了被拿掉的那條。
+</p>
+
+<p>三列仍然分得出每一種讀者能據以行動的故障：</p>
+
+<pre><code>容器掛了      drafts 紅、plan 紅
+物件儲存掛了   drafts 紅、plan 綠   ← 最需要分辨的那一種
+auth 掛了     前兩列綠、登入紅</code></pre>
+
+<div class="card stop">
+  <p>
+    <strong><code>slug</code> 每一列都要釘住，不要拿掉。</strong>
+    Upptime 是從 <code>name</code> 推導 slug 的（<code>getSiteSlug</code>），
+    而 slug 同時是 <code>history/*.yml</code> 的檔名和事件 issue 的 label。
+    改名而沒釘 slug，歷史會變成孤兒，issue #1 也會跟它發生的那個監控項目脫鉤——
+    那是這一頁唯一能證明警報真的會響的證據。
+    代價是磁碟上的檔名跟顯示名不一致，那是刻意的。
   </p>
 </div>
 
@@ -217,7 +243,7 @@
 </div>
 
 <p>
-  副作用：「讀取一份真實計畫」的 uptime 因此掉了一截，正在隨時間稀釋。那不是真實停機。
+  副作用：drafts 那一列的 uptime 因此掉了一截，正在隨時間稀釋。那不是真實停機。
 </p>
 
 <h2>跟原計畫不一樣的地方</h2>
@@ -323,6 +349,24 @@ gh api -X PUT repos/jerryhuangyu/lihaiplan-status/pages -f cname="status.jenliha
 </p>
 
 <p>
+  頁面文案全部中文化，設定在 <code>.upptimerc.yml</code> 的 <code>i18n:</code> 區塊，
+  逐鍵覆蓋 <code>upptime/status-page</code> 的 <code>i18n.yml</code>，
+  沒寫到的鍵會留著上游英文而不是壞掉。<code>locale: zh-TW</code> 不是裝飾——
+  <code>Incidents.svelte</code> 把它交給 <code>toLocaleDateString</code>，
+  日期是靠它從 8/16/2026 變成 2026/8/16 的。
+</p>
+
+<div class="card stop">
+  <p>
+    <strong><code>$UPTIME</code> 和 <code>$TIME</code> 不是被取代，是被 split。</strong>
+    <code>LiveStatus.svelte</code> 用它們把字串切成兩半，數字渲染在中間。
+    所以文字可以在佔位符前後移動，但那個 token 本身必須原樣保留；
+    翻譯時弄丟它，整個數字就不見了。這些字串是用 <code>{@html}</code> 注入的，
+    不必擔心跳脫，也因此不能出現多餘的角括號。
+  </p>
+</div>
+
+<p>
   標誌全部換成 LH mark。<code>assets/</code> 底下的圖檔一律從 lihai-icons 逐位元組複製、
   絕不手改，所以之後要確認有沒有走鐘，<code>cmp</code> 一下就知道，不必用眼睛比。
   原本 <code>faviconSvg</code> 沒設的時候，tab 上的圖是從
@@ -390,7 +434,7 @@ gh api -X PUT repos/jerryhuangyu/lihaiplan-status/pages -f cname="status.jenliha
 <div class="card stop">
   <p>
     <strong>不要刪除 canary 計畫，也不要停用它。</strong>
-    刪掉之後「讀取一份真實計畫」會變成永久紅燈，而那個紅燈跟服務的真實狀態無關。
+    刪掉之後 drafts 那一列會變成永久紅燈，而那個紅燈跟服務的真實狀態無關。
     設定錯誤被記成停機，是狀態頁最不該犯的錯。
   </p>
   <p>
@@ -436,7 +480,7 @@ gh api -X PUT repos/jerryhuangyu/lihaiplan-status/pages -f cname="status.jenliha
 <h2>驗收結果</h2>
 
 <ul class="check">
-  <li>狀態頁打得開，四個站點都顯示為 up</li>
+  <li>狀態頁打得開，三個站點都顯示為 up</li>
   <li><code>history/</code> 存在，commit 正在自動累積</li>
   <li>Actions 沒有紅色的 workflow，六個 workflow 都已註冊並排程</li>
   <li>刻意弄壞 → 自動開 issue → 改回 → 自動關閉，實際跑過一次</li>
