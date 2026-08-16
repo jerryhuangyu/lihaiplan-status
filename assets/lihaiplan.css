@@ -130,6 +130,11 @@ html body {
 
    Upstream's 2rem of side padding per link is the cheapest 128px to give back,
    and keeping the 1.5rem vertical padding leaves the tap targets around 48px.
+   That alone clears a 390px phone but not a 320px one, where 儀表板 still lost
+   its last character, so the logo's own gaps come in too. Measured at 320px the
+   bar now comes to about 310px, which is thin but is the width an iPhone SE
+   actually has.
+
    Shrinking the wordmark would save more and is not available: it is the logo
    link's only accessible name (see .upptimerc.yml), and `display: none` would
    take it out of the accessibility tree along with the layout. */
@@ -137,6 +142,15 @@ html body {
   #sapper nav ul a {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  #sapper nav .logo {
+    margin-right: 1rem;
+  }
+
+  #sapper nav .logo img {
+    height: 2.5rem;
+    margin-right: 0.75rem;
   }
 }
 
