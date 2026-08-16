@@ -59,14 +59,39 @@ status-website:
   #   assets/logo-512.png         == lihai-icons/icon-512.png
   #   assets/apple-touch-icon.png == lihai-icons/apple-touch-icon.png
   #
+  # assets/lihai-mark.svg is the one exception, and it is derived rather than
+  # authored, by exactly one deletion:
+  #
+  #   sed '/prefers-color-scheme/d' assets/favicon.svg > assets/lihai-mark.svg
+  #
+  # so `diff` between the two must show that single line and nothing else. It
+  # exists because favicon.svg flips to #fafafa in dark mode — right for a tab,
+  # fatal in the navbar, which is pinned #faec32 in both themes: white on that
+  # yellow is 1.08:1 and the mark would simply vanish for half the readers.
+  # Same trap as the navbar text colour pinned in assets/lihaiplan.css.
+  #
   # Neither key below is documented on upptime.js.org — both are read straight
   # from src/routes/_layout.svelte in upptime/status-page. Without them the tab
   # shows Upptime's logo, fetched from raw.githubusercontent.com, which is both
   # off-brand and the only request this page makes to a host we do not control.
   faviconSvg: https://status.jenlihai.website/favicon.svg
   favicon: https://status.jenlihai.website/lihaiplan-192.png
+
+  # src/components/Nav.svelte wraps the logo in a link and, unless hideNavTitle
+  # is set, prints `name` beside it inside that same link. hideNavTitle is
+  # tempting here and is a trap: Nav.svelte hard-codes alt="" on the image, so
+  # hiding the title leaves an <a> with no accessible name at all — a screen
+  # reader announces an empty link in the masthead. There is no config key for
+  # alt text and no way to reach it from CSS, so the title stays.
+  #
+  # Which made the second navbar item's old title, lihaiplan, a duplicate of
+  # the word now sitting on the left of the same bar, pointing somewhere else.
+  # It is 儀表板 instead — which is what it actually opens, and matches the name
+  # of the monitor watching it above.
+  logoUrl: https://status.jenlihai.website/lihai-mark.svg
+
   navbar:
     - title: 狀態
       href: /
-    - title: lihaiplan
+    - title: 儀表板
       href: https://plan.jenlihai.website
