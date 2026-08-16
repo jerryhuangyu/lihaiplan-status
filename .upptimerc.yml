@@ -1,29 +1,62 @@
 owner: jerryhuangyu
 repo: lihaiplan-status
 
+# One row per hostname, named hostname-first.
+#
+# The reader arriving here has one piece of information: the address that would
+# not open. Every name therefore starts with the host it answers for, so the
+# match is a scan down the left edge rather than a translation exercise. What
+# the reader was doing follows the separator, because a hostname alone does not
+# say whether it matters to them.
+#
+# There used to be a fourth row, https://drafts.jenlihai.website/healthz. It is
+# gone, and the reason is architectural rather than cosmetic: lihaiplan's README
+# has plan.* and drafts.* served by the SAME container, routed on the Host
+# header. That check and the plan.* one below interrogate one process, so they
+# can barely disagree — the page showed two rows, near-identical numbers, both
+# with 計畫 in the name, and no way for a reader to tell which was theirs.
+#
+# The canary subsumes it. It is also a request to drafts.jenlihai.website, over
+# the same DNS, TLS, proxy and Host routing, and then keeps going into storage.
+# Three rows still separate every failure worth separating:
+#
+#   container dead     drafts red, plan red
+#   object store dead  drafts red, plan green   ← the one that matters most
+#   auth dead          drafts green, plan green, 登入 red
+#
+# `slug` is pinned on every row. Upptime derives it from `name` (getSiteSlug in
+# uptime-monitor), and it is both the history/*.yml filename and the label that
+# ties an incident issue to its monitor. Renaming without pinning would orphan
+# the history and detach issue #1 — the deliberate break, and the only evidence
+# this page has that its alerting actually fires. So the slugs below still read
+# like the old names on disk. That mismatch is the price and it is worth it.
 sites:
-  - name: 已發佈的計畫
-    url: https://drafts.jenlihai.website/healthz
   # 這一條走完 DNS → TLS → 反向代理 → app → Postgres → MinIO → 真的位元組，
   # 是唯一能證明「讀者現在打得開計畫」的檢查。/healthz 只證明行程活著：
-  # 物件儲存壞掉時其他三條會全綠，而所有讀者都拿不到內容。
+  # 物件儲存壞掉時其他兩條會全綠，而所有讀者都拿不到內容。
   #
   # 這份 canary 計畫永遠不要刪、不要 disable。刪掉之後這裡會變成永久紅燈，
   # 而那個紅燈跟服務的真實狀態無關。原始檔在本 repo 的 status-canary.html。
   #   npx lihaiplan upload ./status-canary.html --draft 5c5fg2jasp2h
-  - name: 讀取一份真實計畫
+  - name: drafts.jenlihai.website · 開啟計畫連結
+    slug: 讀取一份真實計畫
     url: https://drafts.jenlihai.website/d/5c5fg2jasp2h
     __dangerous__body_down_if_text_missing: "canary-ok"
-  - name: 儀表板與 API
+  - name: plan.jenlihai.website · 儀表板與 API
+    slug: api
     url: https://plan.jenlihai.website/healthz
-  - name: 登入
+  - name: auth.jenlihai.website · 登入
+    slug: 登入
     url: https://auth.jenlihai.website/healthz
 
 status-website:
   cname: status.jenlihai.website
   name: lihaiplan
   introTitle: lihaiplan 服務狀態
-  introMessage: 這一頁跑在 GitHub 上，和 lihaiplan 的主機無關。
+  # Two sentences, in the order the reader needs them: how to use the page, then
+  # why they can believe it. The first is the whole point — the names below only
+  # work as an index if someone says out loud that they are an index.
+  introMessage: 打不開的網址是哪個開頭，就看下面對應的那一列。這一頁跑在 GitHub 上，和 lihaiplan 的主機無關。
   # assets/ is copied to the site root, so assets/lihaiplan.css is served from
   # here. Replaces `theme: dark` — the built-in themes are single-mode, and
   # every other lihaiplan surface follows the reader's system setting.
@@ -95,3 +128,88 @@ status-website:
       href: /
     - title: 儀表板
       href: https://plan.jenlihai.website
+
+# Merged over upptime/status-page's i18n.yml, key by key, so anything left out
+# here keeps the upstream English rather than breaking. Everything the page can
+# actually put in front of a reader is translated below, including the
+# rate-limit screen: this page calls the GitHub API from the browser, 60
+# requests per hour per IP, and an office behind one address during an outage
+# is exactly when a wall of unexpected English is least welcome.
+#
+# `locale` is not decoration. Incidents.svelte passes it to toLocaleDateString,
+# so it is what turns 8/16/2026 into 2026/8/16.
+#
+# $UPTIME and $TIME are not substituted — LiveStatus.svelte SPLITS on them and
+# renders the number between the halves. So text may move around a placeholder
+# but the token itself has to survive verbatim, and a string that drops it
+# loses the number entirely. The strings are also injected with {@html}: no
+# escaping to worry about, and no stray angle brackets allowed either.
+i18n:
+  locale: zh-TW
+
+  liveStatus: 目前狀態
+  allSystemsOperational: 所有服務正常
+  overallUptime: "可用率：$UPTIME"
+  overallUptimeTitle: 可用率
+  averageResponseTime: "平均回應時間：$TIME ms"
+  averageResponseTimeTitle: 平均回應時間
+  sevelDayResponseTime: 七天回應時間
+  responseTimeMs: 回應時間（毫秒）
+  up: 正常
+  down: 中斷
+  degraded: 緩慢
+  ms: 毫秒
+  loading: 載入中
+
+  duration24H: 24 小時
+  duration7D: 7 天
+  duration30D: 30 天
+  duration1Y: 1 年
+  durationAll: 全部
+
+  activeIncidents: 進行中的事件
+  pastIncidents: 過去的事件
+  activeIncidentSummary: $DATE 開啟，共 $POSTS 則更新
+  pastIncidentsResolved: $MINUTES 分鐘內解決，共 $POSTS 則更新
+  incidentReport: "事件 #$NUMBER 報告 →"
+  incidentTitle: 事件 $NUMBER 詳情
+  incidentDetails: 事件詳情
+  incidentFixed: 已修復
+  incidentOngoing: 進行中
+  incidentOpenedAt: 開啟於
+  incidentClosedAt: 關閉於
+  incidentViewOnGitHub: 在 GitHub 上查看並訂閱
+  incidentCommentSummary: $AUTHOR 於 $DATE 發佈
+  incidentBack: ← 回到所有事件
+
+  scheduledMaintenance: 排定的維護
+  pastScheduledMaintenance: 過去的維護
+  scheduledMaintenanceSummaryStarted: $DATE 開始，持續 $DURATION 分鐘
+  scheduledMaintenanceSummaryStarts: $DATE 開始，持續 $DURATION 分鐘
+  startedAt: 開始於
+  startsAt: 開始於
+  duration: 持續時間
+  durationMin: $DURATION 分鐘
+  incidentCompleted: 已完成
+  incidentScheduled: 已排定
+
+  errorTitle: 發生錯誤
+  errorIntro: 取得最新狀態資料時發生錯誤。
+  errorText: 請過一會兒再試一次。
+  errorHome: 回到首頁
+
+  rateLimitExceededTitle: 超過查詢次數上限
+  rateLimitExceededIntro: 你在這一小時內的查詢次數已達上限，需要等一段時間才能再看這個頁面。或者你也可以填入 GitHub 個人存取權杖繼續使用。
+  rateLimitExceededWhatDoesErrorMean: 這個錯誤是什麼意思？
+  rateLimitExceededErrorMeaning: 這個頁面透過 GitHub API 取得各服務的即時狀態。GitHub 預設每個 IP 位址每小時 60 次查詢，你已經用完了。
+  rateLimitExceededErrorHowCanFix: 要怎麼解決？
+  rateLimitExceededErrorFix: 等一個小時，你的 IP 位址額度就會恢復。或者填入你自己的 GitHub 個人存取權杖，每小時可再多 5,000 次查詢。
+  rateLimitExceededGeneratePAT: 如何產生個人存取權杖
+  rateLimitExceededHasSet: 你已經設定了個人存取權杖。
+  rateLimitExceededRemoveToken: 移除權杖
+  rateLimitExceededGitHubPAT: GitHub 個人存取權杖
+  rateLimitExceededCopyPastePAT: 貼上你的權杖
+  rateLimitExceededSaveToken: 儲存權杖
+
+  navGitHub: GitHub
+  footer: 這一頁是[開放原始碼]($REPO)，由 [Upptime](https://upptime.js.org) 驅動
