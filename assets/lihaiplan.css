@@ -123,34 +123,72 @@ html body {
   color: var(--lp-ink);
 }
 
-/* The logo costs about 166px of the bar, which on a 390px phone pushes the last
-   item past the right edge. Nav.svelte sets `overflow-x: auto` there, so
-   nothing is clipped — it becomes a horizontal scroller instead, which is
-   worse: a nav item you can only find by swiping is a nav item nobody finds.
+/* The masthead is sized off lihaiplan's own status page — the `.band` in
+   packages/app/src/status-page.ts — because those are the two pages a reader
+   lands on when something is wrong, and a bar that changes height between them
+   reads as a different site.
 
-   Upstream's 2rem of side padding per link is the cheapest 128px to give back,
-   and keeping the 1.5rem vertical padding leaves the tap targets around 48px.
-   That alone clears a 390px phone but not a 320px one, where 儀表板 still lost
-   its last character, so the logo's own gaps come in too. Measured at 320px the
-   bar now comes to about 310px, which is thin but is the width an iPhone SE
-   actually has.
+   That band is 14px of padding around a 21px mark and a 20px/900 wordmark:
+   14 + (20 × 1.6) + 14 = 60px. Upptime's is 74px, from 1.5rem of link padding
+   and a 3rem logo. Every number below is copied rather than the total being
+   dialled in, so that if either side's type changes the two still agree.
+
+   line-height is pinned to 1.6 here against the 1.65 set on body further up:
+   it feeds the sum, and one pixel of drift is one pixel of mismatch.
+
+   nav's border-bottom goes because --nav-border-bottom-color is #faec32, the
+   same as the bar itself — it has never drawn anything, and left in place it
+   makes the yellow 61px against the reference's 60px. */
+#sapper nav {
+  border-bottom: 0;
+}
+
+#sapper nav .logo {
+  padding: 14px 0;
+  margin-right: 9px;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+}
+
+#sapper nav .logo img {
+  height: 21px;
+  margin-right: 9px;
+}
+
+/* Upstream pays for the links' height with 1.5rem of vertical padding, which
+   at 60px would overshoot the bar. Stretching them instead keeps the whole bar
+   height as the tap target — bigger than what the padding gave — and drops the
+   current-page underline onto the bottom edge, where it reads as a tab. */
+#sapper nav ul {
+  align-items: stretch;
+}
+
+#sapper nav ul li {
+  display: flex;
+}
+
+#sapper nav ul a {
+  display: flex;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* At 320px the bar comes to 406px and Nav.svelte's `overflow-x: auto` turns
+   the masthead into a horizontal scroller rather than clipping it — worse, in
+   that a nav item you can only find by swiping is a nav item nobody finds.
+   Upstream's 2rem of side padding per link is the cheapest thing to give back;
+   0.5rem still leaves 16px between the two labels and brings 320px to 310px.
 
    Shrinking the wordmark would save more and is not available: it is the logo
    link's only accessible name (see .upptimerc.yml), and `display: none` would
    take it out of the accessibility tree along with the layout. */
 @media (max-width: 480px) {
   #sapper nav ul a {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  #sapper nav .logo {
-    margin-right: 1rem;
-  }
-
-  #sapper nav .logo img {
-    height: 2.5rem;
-    margin-right: 0.75rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 }
 
