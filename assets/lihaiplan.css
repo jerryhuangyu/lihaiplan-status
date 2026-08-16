@@ -123,6 +123,23 @@ html body {
   color: var(--lp-ink);
 }
 
+/* The logo costs about 166px of the bar, which on a 390px phone pushes the last
+   item past the right edge. Nav.svelte sets `overflow-x: auto` there, so
+   nothing is clipped — it becomes a horizontal scroller instead, which is
+   worse: a nav item you can only find by swiping is a nav item nobody finds.
+
+   Upstream's 2rem of side padding per link is the cheapest 128px to give back,
+   and keeping the 1.5rem vertical padding leaves the tap targets around 48px.
+   Shrinking the wordmark would save more and is not available: it is the logo
+   link's only accessible name (see .upptimerc.yml), and `display: none` would
+   take it out of the accessibility tree along with the layout. */
+@media (max-width: 480px) {
+  #sapper nav ul a {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
 /* 900 above 20px only. Below that the weight does not reliably ship — there is
    no webfont here either — and in CJK a small 900 fills the interior strokes of
    characters like 讀, a legibility cost paid only by the Chinese reader. */
