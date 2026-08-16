@@ -340,6 +340,24 @@ gh api -X PUT repos/jerryhuangyu/lihaiplan-status/pages -f cname="status.jenliha
   量過了，mark 的外角落在 80% 安全圓之外，照 maskable 裁的啟動器會把 L 跟 H 的角切掉。
 </p>
 
+<p>
+  mark 也放進 navbar，用的是 <code>assets/lihai-mark.svg</code>——
+  <code>favicon.svg</code> 深色模式會翻成 <code>#fafafa</code>，那條 bar 是釘死的
+  <code>#faec32</code>，翻過去就是 1.08:1，整條消失。那個檔案是
+  <code>sed '/prefers-color-scheme/d'</code> 出來的，<code>diff</code> 應該只有那一行。
+  navbar 的標題沒有隱藏，雖然只留 mark 更乾淨：<code>Nav.svelte</code> 的
+  <code>alt</code> 寫死是空字串，隱藏標題就會留下一個沒有名字的連結，而且無法從設定或 CSS 補。
+  第二個 navbar 項目因此從 lihaiplan 改叫 儀表板——本來會跟左邊的字重複，而且那才是它真正打開的東西。
+</p>
+
+<p>
+  <strong>masthead 的高度是照 lihaiplan 自己的狀態頁抄的</strong>，
+  也就是 <code>packages/app/src/status-page.ts</code> 裡的 <code>.band</code>：
+  14px padding、21px mark、20px/900 字，加起來 60px。抄的是這幾個數字而不是總和，
+  所以那邊改字級時兩邊還會一致。這是一條沒有建置流程綁著的跨 repo 依賴，
+  跟色票那條一樣——改了那邊，這邊不會有任何東西提醒你。
+</p>
+
 <p>三件改的時候會踩到的事，都寫在那個 CSS 檔的註解裡：</p>
 
 <ul>
