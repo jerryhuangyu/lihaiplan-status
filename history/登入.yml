@@ -1,7 +1,7 @@
 url: https://auth.jenlihai.website/healthz
-status: down
-code: 530
-responseTime: 85
-lastUpdated: 2026-09-14T13:47:26.209Z
+status: up
+code: 200
+responseTime: 876
+lastUpdated: 2026-09-14T18:54:07.126Z
 startTime: 2026-08-15T17:11:33.705Z
 generator: Upptime <https://github.com/upptime/upptime>
