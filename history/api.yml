@@ -1,7 +1,7 @@
 url: https://plan.jenlihai.website/healthz
-status: up
-code: 200
-responseTime: 719
-lastUpdated: 2026-10-26T00:54:47.322Z
+status: down
+code: 530
+responseTime: 55
+lastUpdated: 2026-10-26T04:46:40.634Z
 startTime: 2026-08-15T17:11:32.864Z
 generator: Upptime <https://github.com/upptime/upptime>
