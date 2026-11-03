@@ -4,17 +4,17 @@
     "url": "https://drafts.jenlihai.website/d/5c5fg2jasp2h",
     "icon": "https://icons.duckduckgo.com/ip3/drafts.jenlihai.website.ico",
     "slug": "讀取一份真實計畫",
-    "status": "down",
-    "uptime": "97.26%",
-    "uptimeDay": "99.98%",
-    "uptimeWeek": "100.00%",
-    "uptimeMonth": "95.20%",
-    "uptimeYear": "97.26%",
-    "time": 975,
-    "timeDay": 492,
-    "timeWeek": 818,
-    "timeMonth": 746,
-    "timeYear": 975,
+    "status": "up",
+    "uptime": "96.99%",
+    "uptimeDay": "77.63%",
+    "uptimeWeek": "96.80%",
+    "uptimeMonth": "94.46%",
+    "uptimeYear": "96.99%",
+    "time": 972,
+    "timeDay": 557,
+    "timeWeek": 803,
+    "timeMonth": 744,
+    "timeYear": 972,
     "dailyMinutesDown": {
       "2026-08-15": 1,
       "2026-08-22": 86,
@@ -27,7 +27,7 @@
       "2026-10-23": 755,
       "2026-10-22": 387,
       "2026-10-26": 730,
-      "2026-11-03": 0
+      "2026-11-03": 322
     }
   },
   {
