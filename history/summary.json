@@ -4,17 +4,17 @@
     "url": "https://drafts.jenlihai.website/d/5c5fg2jasp2h",
     "icon": "https://icons.duckduckgo.com/ip3/drafts.jenlihai.website.ico",
     "slug": "讀取一份真實計畫",
-    "status": "up",
-    "uptime": "96.51%",
-    "uptimeDay": "100.00%",
-    "uptimeWeek": "88.74%",
+    "status": "down",
+    "uptime": "96.54%",
+    "uptimeDay": "99.96%",
+    "uptimeWeek": "88.73%",
     "uptimeMonth": "93.13%",
-    "uptimeYear": "96.51%",
-    "time": 934,
-    "timeDay": 466,
-    "timeWeek": 524,
-    "timeMonth": 697,
-    "timeYear": 934,
+    "uptimeYear": "96.54%",
+    "time": 927,
+    "timeDay": 271,
+    "timeWeek": 492,
+    "timeMonth": 682,
+    "timeYear": 927,
     "dailyMinutesDown": {
       "2026-08-15": 1,
       "2026-08-22": 86,
@@ -30,7 +30,8 @@
       "2026-11-03": 322,
       "2026-11-06": 174,
       "2026-11-05": 382,
-      "2026-11-07": 258
+      "2026-11-07": 258,
+      "2026-11-09": 1
     }
   },
   {
@@ -38,17 +39,17 @@
     "url": "https://plan.jenlihai.website/healthz",
     "icon": "https://icons.duckduckgo.com/ip3/plan.jenlihai.website.ico",
     "slug": "api",
-    "status": "up",
-    "uptime": "96.82%",
-    "uptimeDay": "100.00%",
-    "uptimeWeek": "91.94%",
+    "status": "down",
+    "uptime": "96.84%",
+    "uptimeDay": "99.98%",
+    "uptimeWeek": "91.93%",
     "uptimeMonth": "93.87%",
-    "uptimeYear": "96.82%",
-    "time": 674,
-    "timeDay": 423,
-    "timeWeek": 568,
-    "timeMonth": 684,
-    "timeYear": 674,
+    "uptimeYear": "96.84%",
+    "time": 669,
+    "timeDay": 250,
+    "timeWeek": 527,
+    "timeMonth": 669,
+    "timeYear": 669,
     "dailyMinutesDown": {
       "2026-08-22": 86,
       "2026-09-12": 188,
@@ -61,7 +62,8 @@
       "2026-10-26": 730,
       "2026-11-06": 174,
       "2026-11-05": 382,
-      "2026-11-07": 257
+      "2026-11-07": 257,
+      "2026-11-09": 0
     }
   },
   {
@@ -69,17 +71,17 @@
     "url": "https://auth.jenlihai.website/healthz",
     "icon": "https://icons.duckduckgo.com/ip3/auth.jenlihai.website.ico",
     "slug": "登入",
-    "status": "up",
-    "uptime": "96.82%",
-    "uptimeDay": "100.00%",
+    "status": "down",
+    "uptime": "96.84%",
+    "uptimeDay": "99.99%",
     "uptimeWeek": "91.94%",
     "uptimeMonth": "93.87%",
-    "uptimeYear": "96.82%",
-    "time": 681,
-    "timeDay": 544,
-    "timeWeek": 524,
-    "timeMonth": 660,
-    "timeYear": 681,
+    "uptimeYear": "96.84%",
+    "time": 675,
+    "timeDay": 310,
+    "timeWeek": 487,
+    "timeMonth": 646,
+    "timeYear": 675,
     "dailyMinutesDown": {
       "2026-08-22": 86,
       "2026-09-12": 188,
@@ -92,7 +94,8 @@
       "2026-10-26": 730,
       "2026-11-06": 174,
       "2026-11-05": 382,
-      "2026-11-07": 257
+      "2026-11-07": 257,
+      "2026-11-09": 0
     }
   }
 ]
