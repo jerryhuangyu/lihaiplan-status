@@ -5,16 +5,16 @@
     "icon": "https://icons.duckduckgo.com/ip3/drafts.jenlihai.website.ico",
     "slug": "讀取一份真實計畫",
     "status": "down",
-    "uptime": "95.17%",
-    "uptimeDay": "80.58%",
-    "uptimeWeek": "77.91%",
-    "uptimeMonth": "88.64%",
-    "uptimeYear": "95.17%",
-    "time": 898,
-    "timeDay": 489,
-    "timeWeek": 456,
-    "timeMonth": 622,
-    "timeYear": 898,
+    "uptime": "94.71%",
+    "uptimeDay": "55.87%",
+    "uptimeWeek": "71.61%",
+    "uptimeMonth": "87.19%",
+    "uptimeYear": "94.71%",
+    "time": 892,
+    "timeDay": 72,
+    "timeWeek": 418,
+    "timeMonth": 600,
+    "timeYear": 892,
     "dailyMinutesDown": {
       "2026-08-15": 1,
       "2026-08-22": 86,
@@ -34,7 +34,8 @@
       "2026-11-10": 1422,
       "2026-11-09": 186,
       "2026-11-12": 361,
-      "2026-11-13": 1
+      "2026-11-14": 252,
+      "2026-11-13": 383
     }
   },
   {
@@ -43,16 +44,16 @@
     "icon": "https://icons.duckduckgo.com/ip3/plan.jenlihai.website.ico",
     "slug": "api",
     "status": "down",
-    "uptime": "95.46%",
-    "uptimeDay": "80.59%",
-    "uptimeWeek": "77.92%",
-    "uptimeMonth": "89.38%",
-    "uptimeYear": "95.46%",
-    "time": 658,
-    "timeDay": 493,
-    "timeWeek": 477,
-    "timeMonth": 618,
-    "timeYear": 658,
+    "uptime": "95.00%",
+    "uptimeDay": "55.89%",
+    "uptimeWeek": "71.62%",
+    "uptimeMonth": "87.93%",
+    "uptimeYear": "95.00%",
+    "time": 653,
+    "timeDay": 80,
+    "timeWeek": 449,
+    "timeMonth": 590,
+    "timeYear": 653,
     "dailyMinutesDown": {
       "2026-08-22": 86,
       "2026-09-12": 188,
@@ -69,7 +70,8 @@
       "2026-11-10": 1422,
       "2026-11-09": 185,
       "2026-11-12": 361,
-      "2026-11-13": 0
+      "2026-11-14": 252,
+      "2026-11-13": 383
     }
   },
   {
@@ -78,16 +80,16 @@
     "icon": "https://icons.duckduckgo.com/ip3/auth.jenlihai.website.ico",
     "slug": "登入",
     "status": "down",
-    "uptime": "95.46%",
-    "uptimeDay": "80.60%",
-    "uptimeWeek": "77.92%",
-    "uptimeMonth": "89.38%",
-    "uptimeYear": "95.46%",
-    "time": 656,
-    "timeDay": 247,
-    "timeWeek": 386,
-    "timeMonth": 582,
-    "timeYear": 656,
+    "uptime": "95.00%",
+    "uptimeDay": "55.91%",
+    "uptimeWeek": "71.63%",
+    "uptimeMonth": "87.93%",
+    "uptimeYear": "95.00%",
+    "time": 651,
+    "timeDay": 80,
+    "timeWeek": 354,
+    "timeMonth": 560,
+    "timeYear": 651,
     "dailyMinutesDown": {
       "2026-08-22": 86,
       "2026-09-12": 188,
@@ -104,7 +106,8 @@
       "2026-11-10": 1422,
       "2026-11-09": 185,
       "2026-11-12": 361,
-      "2026-11-13": 0
+      "2026-11-14": 252,
+      "2026-11-13": 383
     }
   }
 ]
